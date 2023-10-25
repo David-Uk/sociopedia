@@ -8,6 +8,7 @@ import path from "path";
 import morgan from "morgan";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = path.dirname(_filename);
@@ -27,12 +28,14 @@ app.use("/assets", express.static(path.join(_dirname, "public/assets")));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "public/assets"),
-  filename: (req, res, cb) => cb(null, file.originalname),
+  filename: (req, file, cb) => cb(null, file.originalname),
 });
 
 const upload = multer({ storage });
 
 const PORT = process.env.PORT;
+
+app.use("/auth", upload.single("picture"), authRoutes);
 
 mongoose
   .connect(process.env.DATABASE_URL, {
