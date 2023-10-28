@@ -11,6 +11,6 @@ const userRoutes = express.Router();
 userRoutes.get("/:id", verifyToken, getUser);
 userRoutes.get("/:id/friends", verifyToken, getUserFriends);
 
-userRoutes.patch("/:id/friendId", verifyToken, addRemoveFriend);
+userRoutes.patch("/:id/:friendId", verifyToken, addRemoveFriend);
 
 export default userRoutes;
