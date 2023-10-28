@@ -9,6 +9,7 @@ import morgan from "morgan";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = path.dirname(_filename);
@@ -36,6 +37,7 @@ const upload = multer({ storage });
 const PORT = process.env.PORT;
 
 app.use("/auth", upload.single("picture"), authRoutes);
+app.use("/users", userRoutes);
 
 mongoose
   .connect(process.env.DATABASE_URL, {
