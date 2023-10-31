@@ -10,6 +10,9 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import User from "./models/user.js";
+import Post from "./models/post.js";
+import { users, posts } from "./data/index.js";
 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = path.dirname(_filename);
@@ -40,5 +43,8 @@ mongoose
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+
+    // User.insertMany(users);
+    // Post.insertMany(posts);
   })
   .catch((err) => console.log(`${err} did not connect`));
